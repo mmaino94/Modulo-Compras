@@ -12,13 +12,13 @@ import pandas as pd
 import time
 import os
 
-#data = pd.read_excel("ejemplo materiales.xlsx")
+data = pd.read_excel("./src/data/ejemplo materiales.xlsx")
 
 # Cargar la tabla de ejemplo de materiales desde el archivo
-nombre_archivo = input("Ingrese el nombre del archivo del listado de materiales: ")
-data= pd.read_excel(nombre_archivo +".xlsx")
+# nombre_archivo = input("Ingrese el nombre del archivo del listado de materiales: ")
+# data= pd.read_excel(nombre_archivo +".xlsx")
 
-proveedores = pd.read_excel("Tabla de datos Proveedores.xlsx")
+proveedores = pd.read_excel("./src/data/Tabla_de_datos_Proveedores.xlsx")
 
 grupos = data.groupby("Grupo")
 
