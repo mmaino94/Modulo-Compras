@@ -15,6 +15,12 @@ run-dev:
 	@source .venv/bin/activate; \
 	python Todo_automatico.py 
 
+run:
+	@( \
+		if [ ! -d .venv ]; then python3 -m venv --copies .venv; fi; \
+		source .venv/bin/activate; \
+		python3 src/app/main.py; \
+	)
 
 autoflake:
 	@autoflake . --check --recursive --remove-all-unused-imports --remove-unused-variables --exclude .venv;

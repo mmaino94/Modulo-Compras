@@ -1,1 +1,1 @@
-smtplib
+pandas==1.24.3
