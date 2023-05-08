@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 
 def read_files():
     proveedores = pd.read_csv(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\proveedores.csv")
-    materiales = pd.read_csv("./src/data/materiales1.csv")
+    materiales = pd.read_csv(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\materiales1.csv")
 
     return proveedores, materiales
 
