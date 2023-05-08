@@ -67,8 +67,8 @@ def grupos(proveedores):
     else:
         print('No se eliminará ningún grupo.')
 
-    return grupos_final
-  
+    return grupos_final 
+      
 
 #Funcion para crear el mensaje y enviar a los grupos correctos
 def mensaje_final(grupos_seleccionados):
@@ -80,10 +80,16 @@ def mensaje_final(grupos_seleccionados):
         materiales_grupo = materiales_grupo.reset_index(drop=True)
         mensajes[grupo] = crear_cuerpo_mensaje(materiales_grupo)
 
+    proveedores_grupos = {}
+
+    for mat in proveedores['Material'].unique():
+        #add key and value to dictionary
+        proveedores_grupos[mat] = proveedores[proveedores['Material']==mat]['Mail']
+
     for grupo in grupos_seleccionados:
         destinatarios = proveedores_grupos[grupo].tolist()
         for des in destinatarios:
-            #enviar_correo(des, mensajes[grupo])
+            enviar_correo(des, mensajes[grupo])
             print("Email enviado a " + des + " con el grupo " + grupo)
 
 
