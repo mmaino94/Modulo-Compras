@@ -7,9 +7,9 @@ import os
 
 def read_files():
     ruta_absoluta_materiales = os.path.abspath(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\materiales1.csv")
-    ruta_absoluta_proveedores = os.path.abspath(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\proveedores.csv")
+    ruta_absoluta_proveedores = os.path.abspath(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\proveedores.xlsx")
     proveedores = pd.read_csv(ruta_absoluta_proveedores)
-    materiales = pd.read_csv(ruta_absoluta_materiales)
+    materiales = pd.read_excel(ruta_absoluta_materiales)
 
     return proveedores, materiales
 
