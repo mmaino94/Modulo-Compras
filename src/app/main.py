@@ -7,10 +7,10 @@ import os
 
 
 def read_files():
-    #ruta_absoluta_materiales = os.path.abspath(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\materiales1.xlsx")
-    #ruta_absoluta_proveedores = os.path.abspath(r"../src/data/proveedores.xlsx")
-    proveedores = pd.read_excel(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\proveedores.xlsx")
-    materiales = pd.read_excel(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\materiales1.xlsx")
+    ruta_absoluta_materiales = os.path.abspath(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\materiales1.xlsx")
+    ruta_absoluta_proveedores = os.path.abspath(r"C:\Users\mmaino\Desktop\Python\Modulo-Compras\src\data\proveedores.xlsx")
+    proveedores = pd.read_excel(ruta_absoluta_proveedores)
+    materiales = pd.read_excel(ruta_absoluta_materiales)
 
     return proveedores, materiales
 
@@ -75,7 +75,7 @@ def grupos(proveedores):
       
 
 #Funcion para crear el mensaje y enviar a los grupos correctos
-def mensaje_final(grupos_seleccionados):
+def mensaje_final(grupos_seleccionados,correo):
     mensajes = {}
 
     for grupo in grupos_seleccionados:
@@ -93,7 +93,7 @@ def mensaje_final(grupos_seleccionados):
     for grupo in grupos_seleccionados:
         destinatarios = proveedores_grupos[grupo].tolist()
         for des in destinatarios:
-            enviar_correo(des, mensajes[grupo])
+            enviar_correo(des, mensajes[grupo],correo)
             print("Email enviado a " + des + " con el grupo " + grupo)
 
 
@@ -144,11 +144,18 @@ def crear_cuerpo_mensaje(df: pd.DataFrame):
     """
     return cuerpo_mensaje
 
-def enviar_correo(destinatario: str, cuerpo_mensaje: str):
-    # Crear el mensaje
-    mensaje = MIMEMultipart()
+
+def conectar_correo():
     direccion_correo = input('Ingrese su dirección de correo electrónico: ')
     contraseña = input('Ingrese su contraseña: ')
+    return direccion_correo , contraseña
+
+
+def enviar_correo(destinatario: str, cuerpo_mensaje: str,correo):
+    # Crear el mensaje
+    mensaje = MIMEMultipart()
+    direccion_correo = correo[0]
+    contraseña = correo[1]
     mensaje['From'] = direccion_correo
     mensaje['To'] = destinatario
     mensaje['Subject'] = 'Solicitud de cotización'
@@ -177,7 +184,8 @@ if __name__ == "__main__":
         proveedores, materiales = read_files()
         print("se leyeron bien los archivos")
         grupos_seleccionados=grupos(proveedores)
-        mensaje_final(grupos_seleccionados) 
+        correo = conectar_correo()
+        mensaje_final(grupos_seleccionados,correo) 
 
     except Exception as e:
         print(e)
